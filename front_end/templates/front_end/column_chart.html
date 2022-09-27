@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能撲滿</title>
+    <!--<link rel="stylesheet" href="../css/invest.css"> -->
+    <!--連結到index.css-->
+    <link rel="icon" href="../asset/image/logo_money.png">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    <div id="AnnvalAssetReturns" class="w3-container city">
+    <div class="AnnvalAssetReturns">
+      <h2>年度資產回報</h2>
+      <figure class="highcharts-figure">
+        <article id="AnnvalAssetReturns"></article>
+      </figure>
+    </div>
+    <div class="AnnvalAssetReturns">
+      <h2>年度資產回報</h2>
+      <figure class="highcharts-figure">
+        <article id="AnnvalAssetReturns"></article>
+      </figure>
+    </div>
+
+
+  </div>
+    <script>
+    Highcharts.chart('AnnvalAssetReturns', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: '年度資產回報'
+      },
+      xAxis: {
+        categories: ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+      },
+      yAxis: {
+        title: {
+          text: 'Annual Return'
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Oslo',
+        data: [
+          -5.0, -3.6, 3.3, 5.8, 10.6, 17.3, 20.0, 16.5, 13.4, 9.1, 2.9, -3.1]
+      }, {
+        name: 'Svalbard',
+        data: [-8.5, -7.8, -10.8, -6.8, -4.0, 3.7, 6.7, 6.4, 3.5, -3.7,
+        -10.6, -7.7]
+      }, {
+        name: 'Trondheim',
+        data: [-6.2, -4.6, 1.7, 2.3, 8.1, 13.2, 16.3, 12.1, 9.9, 7.0, 0.5, -2.9]
+      }]
+    });
+  </script>
+</body>
+</html>
+
+
+

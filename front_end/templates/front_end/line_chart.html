@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能撲滿</title>
+    <!--<link rel="stylesheet" href="../css/invest.css"> -->
+    <!--連結到index.css-->
+    <link rel="icon" href="../asset/image/logo_money.png">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    <div id="ROI" class="w3-container city">
+        <div class="ROI">
+          <h2>投資報酬率</h2>
+          <figure class="highcharts-figure">
+            <article id="ROI"></article>
+          </figure>
+        </div>
+        <div class="ROI">
+          <h2>投資報酬率</h2>
+          <figure class="highcharts-figure">
+            <article id="ROI"></article>
+          </figure>
+        </div>
+      </div>
+    <script>
+        Highcharts.chart('ROI', {
+
+          title: {
+            text: '投資報酬率'
+          },
+
+          xAxis: {
+            categories: ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August', 'September', 'October', 'November', 'December']
+          },
+
+          yAxis: {
+            title: {
+              text: '報酬率'
+            }
+          },
+
+          tooltip: {
+            headerFormat: '<b>{series.name}</b><br />',
+            pointFormat: '{point.x}%'
+          },
+
+          series: [{
+            data: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+            pointStart: 1
+          }]
+        });
+
+      </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能撲滿</title>
+    <!--<link rel="stylesheet" href="../css/invest.css"> -->
+    <!--連結到index.css-->
+    <link rel="icon" href="../asset/image/logo_money.png">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    <div id="Potofolio" class="w3-container city">
+    <div class="Potofolio">
+      <h2>權重</h2>
+      <figure class="highcharts-figure">
+        <article id="Potofolio"></article>
+      </figure>
+    </div>
+    <div class="Potofolio">
+      <h2>權重</h2>
+      <figure class="highcharts-figure">
+        <article id="Potofolio"></article>
+      </figure>
+    </div>
+  </div>
+    <script>
+    // Build the chart
+    var result =
+      [['A', 30], ['ALL', 20], ['CE', 18], ['company4', 12], ['company5', 10], ['company6', 5], ['company7', 1], ['company8', 1], ['company9', 1], ['company10', 1], ['others', 1]]
+    console.log(result.length)
+
+    Highcharts.chart('Potofolio', {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: '權重'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      accessibility: {
+        point: {
+          valueSuffix: '%'
+        }
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false
+          },
+          showInLegend: true
+        }
+      },
+      series: [{
+        name: '權重',
+        colorByPoint: true,
+        data: [{
+          name: result[0][0],
+          y: result[0][1],
+          // sliced: true,
+          // selected: true
+        }, {
+          name: result[1][0],
+          y: result[1][1]
+        }, {
+          name: result[2][0],
+          y: result[2][1]
+        }, {
+          name: result[3][0],
+          y: result[3][1]
+        }, {
+          name: result[4][0],
+          y: result[4][1]
+        }, {
+          name: result[5][0],
+          y: result[5][1]
+        }, {
+          name: result[6][0],
+          y: result[6][1]
+        }, {
+          name: result[7][0],
+          y: result[7][1]
+        }, {
+          name: result[8][0],
+          y: result[8][1]
+        }, {
+          name: result[9][0],
+          y: result[9][1]
+        }, {
+          name: result[10][0],
+          y: result[10][1]
+        }
+        ]
+      }]
+    });
+  </script>
+
+</body>
+</html>
+
+
+
