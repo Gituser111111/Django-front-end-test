@@ -1,36 +1,420 @@
 <!DOCTYPE html>
+<!--{% load static %}-->
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能撲滿</title>
-    <!--<link rel="stylesheet" href="../css/invest.css"> -->
-    <!--連結到index.css-->
-    <link rel="icon" href="../asset/image/logo_money.png">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>決策支援系統</title>
+  <!--<link rel="stylesheet" type="text/css" href="{% static 'front_end/column_chart.css' %}">-->
+  <link rel="stylesheet" type="text/css" href="../../static/front_end/column_chart.css">
+
+  <!--連結到index.css
+    <link rel="icon" href="../asset/image/logo_money.png">-->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+  <style>
+    #tableDiv {
+      width: fit-content;
+      height: auto;
+      float: left;
+      display: inline;
+      margin-top: inherit;
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    }
+
+    #datatatable {
+      font-family: Verdana, sans-serif;
+      border-collapse: collapse;
+      border: 1px solid #ebebeb;
+      margin: 10px auto;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    #datatable caption {
+      padding: 1em 0;
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    #datatable th {
+      font-weight: 600;
+      padding: 0.5em;
+    }
+
+    #datatable td,
+    #datatable th,
+    #datatable caption {
+      padding: 0.5em;
+    }
+
+    #datatable thead tr,
+    #datatable tr:nth-child(even) {
+      background: #f8f8f8;
+    }
+
+    #datatable tr:hover {
+      background: #f1f7ff;
+    }
+
+    #ChartsDiv {
+      width: 550px;
+      height: auto;
+      float: right;
+      display: inline;
+    }
+
+    /*navbar*/
+    .container-navbar {
+      height: 80px;
+      box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container-nav {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      /* 移除項目符號 */
+      /* background-color: beige; */
+      margin: 0%;
+      padding: 1.5%;
+
+    }
+
+    .container-nav a {
+      color: inherit;
+      /* 移除超連結顏色 */
+      text-decoration: none;
+      /* 移除超連結底線 */
+      display: block;
+      /* 讓 <a> 填滿 <li> */
+
+    }
+
+    .container-nav-btn {
+      /* padding: 10px 20px; */
+      font-weight: bold;
+      letter-spacing: 1.5px;
+    }
+
+    .container-nav-btn:not(#container-nav-btn-expect) {
+      border-color: gray;
+      border: 1px;
+      border-right-style: dashed;
+    }
+
+    .container-nav-btn-text:hover {
+      background-color: #ffd65c;
+      color: white;
+      border-radius: 10px;
+    }
+
+    #container-nav-btn-text-active {
+      background-color: #ffd65c;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .container-nav-btn-text {
+      margin: 0 10px;
+      padding: 10px;
+      /* background-color: bisque; */
+    }
+
+    #Transitions {
+      width: 100%;
+      float: left;
+      border: 2px solid #faecc1;
+      border-radius: 5px;
+      height: auto;
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+      background-color: #faecc1;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="AnnvalAssetReturns" class="w3-container city">
-    <div class="AnnvalAssetReturns">
-      <h2>年度資產回報</h2>
-      <figure class="highcharts-figure">
-        <article id="AnnvalAssetReturns"></article>
-      </figure>
-    </div>
-    <div class="AnnvalAssetReturns">
-      <h2>年度資產回報</h2>
-      <figure class="highcharts-figure">
-        <article id="AnnvalAssetReturns"></article>
-      </figure>
-    </div>
-
-
+  <nav class="container-navbar">
+    <ul class="container-nav">
+      <li class="container-nav-logo">
+        <a href=".."><img src="{% static 'portfolio/image/logo_pig-removebg-preview.png' %}" alt="" width="75px"
+            style="left: 50px; top: 5px; position: absolute;"></a>
+      </li>
+    </ul>
+  </nav>
+  <div id="Transitions">
+    <h2>年度資產回報</h2>
   </div>
-    <script>
+
+
+  <div id="tableDiv">
+    <table id="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Oslo</th>
+          <td>-5.0</td>
+          <td>-3.6</td>
+          <td>3.3</td>
+          <td>5.8</td>
+          <td>10.6</td>
+          <td>17.3</td>
+          <td>20.0</td>
+          <td>16.5</td>
+          <td>13.4</td>
+          <td>9.1</td>
+          <td>2.9</td>
+          <td>-3.1</td>
+        </tr>
+        <tr>
+          <th>Svalbard</th>
+          <td>-8.5</td>
+          <td>-7.8</td>
+          <td>-10.8</td>
+          <td>-6.8</td>
+          <td>-4.0</td>
+          <td>3.7</td>
+          <td>6.7</td>
+          <td>6.4</td>
+          <td>3.5</td>
+          <td>-3.7</td>
+          <td>-10.6</td>
+          <td>-7.7</td>
+        </tr>
+        <tr>
+          <th>Trondheim</th>
+          <td>-6.2</td>
+          <td>-4.6</td>
+          <td>1,7</td>
+          <td>2,3</td>
+          <td>8.1</td>
+          <td>13.2</td>
+          <td>16.3</td>
+          <td>12.1</td>
+          <td>9.9</td>
+          <td>7.0</td>
+          <td>0.5</td>
+          <td>-2.9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="ChartsDiv">
+    <figure class="highcharts-figure">
+      <article id="AnnvalAssetReturns"></article>
+    </figure>
+  </div>
+
+  <!--<div id="AnnvalAssetReturns" class="w3-container city" >
+      <div class="AnnvalAssetReturns">
+        <h2>年度資產回報</h2>
+        <figure class="highcharts-figure">
+          <article id="AnnvalAssetReturns"></article> 
+        </figure>
+      </div>
+   
+      <div class="AnnvalAssetReturns"> 
+      </div>
+    <div>
+      <p>123456877</p>
+    </div>-->
+
+  <br>
+
+  <div id="Transitions">
+    <h2>模型績效</h2>
+  </div>
+
+  <!--模型績效Div-->
+  <div id="tableDiv">
+
+    <table id="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>model1</th>
+          <td>16.02</td>
+          <td>18.2</td>
+          <td>23.1</td>
+          <td>27.9</td>
+          <td>32.2</td>
+          <td>36.4</td>
+          <td>39.8</td>
+          <td>38.4</td>
+          <td>35.5</td>
+          <td>29.2</td>
+          <td>22.0</td>
+          <td>17.8</td>
+        </tr>
+        <tr>
+          <th>model2</th>
+          <td>-2.9</td>
+          <td>-3.6</td>
+          <td>-0.6</td>
+          <td>4.8</td>
+          <td>10.2</td>
+          <td>14.5</td>
+          <td>17.6</td>
+          <td>16.5</td>
+          <td>12.0</td>
+          <td>6.5</td>
+          <td>2.0</td>
+          <td>-0.9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="ChartsDiv">
+    <figure class="highcharts-figure">
+      <article id="results"></article>
+    </figure>
+  </div>
+
+  <!--ROI-->
+  <div id="Transitions">
+    <h2>投資報酬率</h2>
+  </div>
+
+
+  <div id="tableDiv">
+
+    <table id="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Solo</th>
+          <td>1</td>
+          <td>2</td>
+          <td>4</td>
+          <td>8</td>
+          <td>16</td>
+          <td>36</td>
+          <td>-9.8</td>
+          <td>4</td>
+          <td>5.5</td>
+          <td>29</td>
+          <td>20</td>
+          <td>8</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div id="ChartsDiv">
+    <figure class="highcharts-figure">
+      <article id="ROI"></article>
+    </figure>
+  </div>
+
+  <!--Potofolio-->
+  <div id="Transitions">
+    <h2>權重</h2>
+  </div>
+
+
+  <div id="tableDiv">
+
+    <table id="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>A</th>
+          <th>CL</th>
+          <th>CE</th>
+          <th>PLA</th>
+          <th>MF</th>
+          <th>GI</th>
+          <th>OT</th>
+          <th>YQ</th>
+          <th>CB</th>
+          <th>QKC</th>
+          <th>Others</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>權重</th>
+          <td>30</td>
+          <td>20</td>
+          <td>18</td>
+          <td>12</td>
+          <td>10</td>
+          <td>5</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div id="ChartsDiv">
+    <figure class="highcharts-figure">
+      <article id="Potofolio"></article>
+    </figure>
+  </div>
+
+  <script>
     Highcharts.chart('AnnvalAssetReturns', {
+      data: {
+        table: 'datatable'
+      },
       chart: {
         type: 'column'
       },
@@ -50,6 +434,8 @@
         enabled: false
       },
       series: [{
+        name: '權重',
+
         name: 'Oslo',
         data: [
           -5.0, -3.6, 3.3, 5.8, 10.6, 17.3, 20.0, 16.5, 13.4, 9.1, 2.9, -3.1]
@@ -60,11 +446,228 @@
       }, {
         name: 'Trondheim',
         data: [-6.2, -4.6, 1.7, 2.3, 8.1, 13.2, 16.3, 12.1, 9.9, 7.0, 0.5, -2.9]
+      }
+      ],
+    });
+
+    Highcharts.addEvent(Highcharts.Point, 'click', function () {
+      if (this.series.options.className.indexOf('popup-on-click') !== -1) {
+        const chart = this.series.chart;
+        const date = Highcharts.dateFormat('%A, %b %e, %Y', this.x);
+        const text = `<b>${date}</b><br/>${this.y} ${this.series.name}`;
+
+        const anchorX = this.plotX + this.series.xAxis.pos;
+        const anchorY = this.plotY + this.series.yAxis.pos;
+        const align = anchorX < chart.chartWidth - 200 ? 'left' : 'right';
+        const x = align === 'left' ? anchorX + 10 : anchorX - 10;
+        const y = anchorY - 30;
+        if (!chart.sticky) {
+          chart.sticky = chart.renderer
+            .label(text, x, y, 'callout', anchorX, anchorY)
+            .attr({
+              align,
+              fill: 'rgba(0, 0, 0, 0.75)',
+              padding: 10,
+              zIndex: 7 // Above series, below tooltip
+            })
+            .css({
+              color: 'white'
+            })
+            .on('click', function () {
+              chart.sticky = chart.sticky.destroy();
+            })
+            .add();
+        } else {
+          chart.sticky
+            .attr({ align, text })
+            .animate({ anchorX, anchorY, x, y }, { duration: 250 });
+        }
+      }
+    });
+
+
+    Highcharts.chart('results', {
+      chart: {
+        scrollablePlotArea: {
+          minWidth: 700
+        }
+      },
+      title: {
+        text: '模型績效'
+      },
+      xAxis: {
+        tickInterval: 7 * 24 * 3600 * 1000, // one week
+        tickWidth: 0,
+        gridLineWidth: 1,
+        labels: {
+          align: 'left',
+          x: 3,
+          y: -3
+        }
+      },
+      yAxis: [{ // left y axis
+        title: {
+          text: null
+        },
+        labels: {
+          align: 'left',
+          x: 3,
+          y: 16,
+          format: '{value:.,0f}'
+        },
+        showFirstLabel: false
+      }, { // right y axis
+        linkedTo: 0,
+        gridLineWidth: 0,
+        opposite: true,
+        title: {
+          text: null
+        },
+        labels: {
+          align: 'right',
+          x: -3,
+          y: 16,
+          format: '{value:.,0f}'
+        },
+        showFirstLabel: false
+      }],
+
+      legend: {
+        align: 'left',
+        verticalAlign: 'top',
+        borderWidth: 0
+      },
+
+      tooltip: {
+        shared: true,
+        crosshairs: true
+      },
+
+      plotOptions: {
+        series: {
+          cursor: 'pointer',
+          className: 'popup-on-click',
+          marker: {
+            lineWidth: 1
+          }
+        }
+      },
+      series: [{
+        name: 'model1',
+        data: [16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
+          22.0, 17.8]
+      }, {
+        name: 'model2',
+        data: [-2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
+          2.0, -0.9]
+      }]
+    });
+
+    Highcharts.chart('ROI', {
+
+      title: {
+        text: '投資報酬率'
+      },
+
+      xAxis: {
+        categories: ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+      },
+
+      yAxis: {
+        title: {
+          text: '報酬率'
+        }
+      },
+
+      tooltip: {
+        headerFormat: '<b>{series.name}</b><br />',
+        pointFormat: '{point.y}%'
+      },
+
+      series: [{
+        name: 'Solo',
+        data: [1, 2, 4, 8, 16, 36, -9.8, 4, 5.5, 29, 20],
+        pointStart: 1
+      }]
+    });
+
+    var result =
+    [['A', 30], ['CL', 20], ['CE', 18], ['PLA', 12], ['MF', 10], ['GI', 5], ['OT', 1], ['YQ', 1], ['CB', 1], ['QKS', 1], ['others', 1]]
+    console.log(result.length)
+
+    Highcharts.chart('Potofolio', {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: '權重'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      accessibility: {
+        point: {
+          valueSuffix: '%'
+        }
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false
+          },
+          showInLegend: true
+        }
+      },
+      series: [{
+        name: '權重',
+        colorByPoint: true,
+        data: [{
+          name: result[0][0],
+          y: result[0][1],
+          // sliced: true,
+          // selected: true
+        }, {
+          name: result[1][0],
+          y: result[1][1]
+        }, {
+          name: result[2][0],
+          y: result[2][1]
+        }, {
+          name: result[3][0],
+          y: result[3][1]
+        }, {
+          name: result[4][0],
+          y: result[4][1]
+        }, {
+          name: result[5][0],
+          y: result[5][1]
+        }, {
+          name: result[6][0],
+          y: result[6][1]
+        }, {
+          name: result[7][0],
+          y: result[7][1]
+        }, {
+          name: result[8][0],
+          y: result[8][1]
+        }, {
+          name: result[9][0],
+          y: result[9][1]
+        }, {
+          name: result[10][0],
+          y: result[10][1]
+        }
+        ]
       }]
     });
   </script>
+
 </body>
+
 </html>
-
-
-
