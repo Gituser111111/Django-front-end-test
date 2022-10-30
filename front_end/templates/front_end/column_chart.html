@@ -16,127 +16,8 @@
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
 
-  <style>
-    #tableDiv {
-      width: fit-content;
-      height: auto;
-      float: left;
-      display: inline;
-      margin-top: inherit;
-      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
-    }
-
-    #datatatable {
-      font-family: Verdana, sans-serif;
-      border-collapse: collapse;
-      border: 1px solid #ebebeb;
-      margin: 10px auto;
-      text-align: center;
-      width: 100%;
-      max-width: 500px;
-    }
-
-    #datatable caption {
-      padding: 1em 0;
-      font-size: 1.2em;
-      color: #555;
-    }
-
-    #datatable th {
-      font-weight: 600;
-      padding: 0.5em;
-    }
-
-    #datatable td,
-    #datatable th,
-    #datatable caption {
-      padding: 0.5em;
-    }
-
-    #datatable thead tr,
-    #datatable tr:nth-child(even) {
-      background: #f8f8f8;
-    }
-
-    #datatable tr:hover {
-      background: #f1f7ff;
-    }
-
-    #ChartsDiv {
-      width: 550px;
-      height: auto;
-      float: right;
-      display: inline;
-    }
-
-    /*navbar*/
-    .container-navbar {
-      height: 80px;
-      box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .container-nav {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      /* 移除項目符號 */
-      /* background-color: beige; */
-      margin: 0%;
-      padding: 1.5%;
-
-    }
-
-    .container-nav a {
-      color: inherit;
-      /* 移除超連結顏色 */
-      text-decoration: none;
-      /* 移除超連結底線 */
-      display: block;
-      /* 讓 <a> 填滿 <li> */
-
-    }
-
-    .container-nav-btn {
-      /* padding: 10px 20px; */
-      font-weight: bold;
-      letter-spacing: 1.5px;
-    }
-
-    .container-nav-btn:not(#container-nav-btn-expect) {
-      border-color: gray;
-      border: 1px;
-      border-right-style: dashed;
-    }
-
-    .container-nav-btn-text:hover {
-      background-color: #ffd65c;
-      color: white;
-      border-radius: 10px;
-    }
-
-    #container-nav-btn-text-active {
-      background-color: #ffd65c;
-      color: white;
-      border-radius: 10px;
-    }
-
-    .container-nav-btn-text {
-      margin: 0 10px;
-      padding: 10px;
-      /* background-color: bisque; */
-    }
-
-    #Transitions {
-      width: 100%;
-      float: left;
-      border: 2px solid #faecc1;
-      border-radius: 5px;
-      height: auto;
-      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
-      background-color: #faecc1;
-    }
-  </style>
 </head>
 
 <body>
@@ -152,24 +33,23 @@
     <h2>年度資產回報</h2>
   </div>
 
-
   <div id="tableDiv">
     <table id="datatable">
       <thead>
         <tr>
           <th></th>
-          <th>Jan</th>
-          <th>Feb</th>
-          <th>Mar</th>
-          <th>Apr</th>
-          <th>May</th>
-          <th>Jun</th>
-          <th>Jul</th>
-          <th>Aug</th>
-          <th>Sep</th>
-          <th>Oct</th>
-          <th>Nov</th>
-          <th>Dec</th>
+          <th>2002</th>
+          <th>2003</th>
+          <th>2004</th>
+          <th>2005</th>
+          <th>2006</th>
+          <th>2007</th>
+          <th>2008</th>
+          <th>2009</th>
+          <th>2010</th>
+          <th>2011</th>
+          <th>2012</th>
+          <th>2013</th>
         </tr>
       </thead>
       <tbody>
@@ -411,7 +291,11 @@
   </div>
 
   <script>
+
     Highcharts.chart('AnnvalAssetReturns', {
+      rangeSelector: {
+        selected: 1
+      },
       data: {
         table: 'datatable'
       },
@@ -422,8 +306,9 @@
         text: '年度資產回報'
       },
       xAxis: {
-        categories: ['January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December']
+        /*categories: ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'],*/
+        categories: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013],
       },
       yAxis: {
         title: {
@@ -433,18 +318,47 @@
       credits: {
         enabled: false
       },
+      marker: {
+        enabled: false
+      },
       series: [{
         name: '權重',
 
+
+
         name: 'Oslo',
+        type: 'column',
+        color: 'skyblue',
         data: [
           -5.0, -3.6, 3.3, 5.8, 10.6, 17.3, 20.0, 16.5, 13.4, 9.1, 2.9, -3.1]
       }, {
         name: 'Svalbard',
+        type: 'column',
+        color: 'lightgreen',
         data: [-8.5, -7.8, -10.8, -6.8, -4.0, 3.7, 6.7, 6.4, 3.5, -3.7,
         -10.6, -7.7]
       }, {
         name: 'Trondheim',
+        type: 'column',
+        color: 'darkgrey',
+        data: [-6.2, -4.6, 1.7, 2.3, 8.1, 13.2, 16.3, 12.1, 9.9, 7.0, 0.5, -2.9]
+      },
+      {
+        name: 'Oslo',
+        type: 'spline',
+        color: 'skyblue',
+        data: [
+          -5.0, -3.6, 3.3, 5.8, 10.6, 17.3, 20.0, 16.5, 13.4, 9.1, 2.9, -3.1]
+      }, {
+        name: 'Svalbard',
+        type: 'spline',
+        color: 'lightgreen',
+        data: [-8.5, -7.8, -10.8, -6.8, -4.0, 3.7, 6.7, 6.4, 3.5, -3.7,
+        -10.6, -7.7]
+      }, {
+        name: 'Trondheim',
+        type: 'spline',
+        color: 'darkgrey',
         data: [-6.2, -4.6, 1.7, 2.3, 8.1, 13.2, 16.3, 12.1, 9.9, 7.0, 0.5, -2.9]
       }
       ],
@@ -593,7 +507,7 @@
     });
 
     var result =
-    [['A', 30], ['CL', 20], ['CE', 18], ['PLA', 12], ['MF', 10], ['GI', 5], ['OT', 1], ['YQ', 1], ['CB', 1], ['QKS', 1], ['others', 1]]
+      [['A', 30], ['CL', 20], ['CE', 18], ['PLA', 12], ['MF', 10], ['GI', 5], ['OT', 1], ['YQ', 1], ['CB', 1], ['QKS', 1], ['others', 1]]
     console.log(result.length)
 
     Highcharts.chart('Potofolio', {
