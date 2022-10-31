@@ -17,6 +17,12 @@
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+  <script src="/js/highcharts.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.0/mootools-yui-compressed.js"
+    type="text/javascript"></script>
+  <script src="/js/adapters/mootools-adapter.js" type="text/javascript"></script>
+  <script src="/js/highcharts.js" type="text/javascript"></script>
 
 </head>
 
@@ -321,10 +327,13 @@
       marker: {
         enabled: false
       },
+      navigator: {
+        series: {
+          type: 'areaspline'
+        }
+      },
       series: [{
         name: '權重',
-
-
 
         name: 'Oslo',
         type: 'column',
@@ -360,6 +369,12 @@
         type: 'spline',
         color: 'darkgrey',
         data: [-6.2, -4.6, 1.7, 2.3, 8.1, 13.2, 16.3, 12.1, 9.9, 7.0, 0.5, -2.9]
+      },{
+        showInNavigator: false
+      }, {
+        showInNavigator: true
+      }, {
+        showInNavigator: true
       }
       ],
     });
@@ -510,7 +525,7 @@
       [['A', 30], ['CL', 20], ['CE', 18], ['PLA', 12], ['MF', 10], ['GI', 5], ['OT', 1], ['YQ', 1], ['CB', 1], ['QKS', 1], ['others', 1]]
     console.log(result.length)
 
-    Highcharts.chart('Potofolio', {
+    Highcharts.stockChart('Potofolio', {
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
